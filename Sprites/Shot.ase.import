@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://fjvd745f7dlh"
+path="res://.godot/imported/Shot.ase-30c7844a7cbe135c38de35621766e822.res"
+
+[deps]
+
+source_file="res://Sprites/Shot.ase"
+dest_files=["res://.godot/imported/Shot.ase-30c7844a7cbe135c38de35621766e822.res"]
+
+[params]
+
