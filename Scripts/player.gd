@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 var movespeed = 400
 
 @onready var Character = $CollisionShape2D/Character
@@ -32,6 +31,4 @@ func _process(delta):
 		Character.flip_h = true
 	else:
 		Character.flip_h = false
-		
-func hit():
-	pass
+	

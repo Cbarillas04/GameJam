@@ -1,7 +1,9 @@
 extends CharacterBody2D
 
-var speed = 250
+var speed = 200
+var health = 2
 @onready var enemy = $Sprite2D
+
 
 func _physics_process(delta):
 	var player = get_parent().get_node("Player")
@@ -19,3 +21,16 @@ func _physics_process(delta):
 	velocity = direction * speed
 	move_and_slide()
 	
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("bullets"):
+		health -= 1
+	if health <= 0:
+		addHealth()
+		queue_free()
+
+func addHealth():
+	if Global.playerHealth + 3 < Global.maxHealth:
+		Global.playerHealth += 3
+	else:
+		Global.playerHealth == Global.maxHealth

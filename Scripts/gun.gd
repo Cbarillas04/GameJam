@@ -2,9 +2,10 @@ extends Node2D
 
 @onready var sprite = $Gun
 #Setting Bullet Speed
-var bullet_speed = 2000
+var bullet_speed = 1500
 #Loading Bullet Scene
 var bullet = preload("res://bullet.tscn")
+
 
 func _process(delta):
 	# Get mouse position and Direction from gun to mouse
@@ -22,17 +23,21 @@ func _process(delta):
 		
 	if Input.is_action_just_pressed("LMB"):
 		fire()
-
+	
 func fire():
+	#Player Uses health pool to shoot
+	Global.playerHealth -= 1
+	print(Global.playerHealth)
 	#Intiating Bullet scene
 	var bullet_instance = bullet.instantiate()
+	
 	#Offsetting bullet spawn, doesn't intefere with player
 	var spawn_offset = Vector2(50, 0).rotated(rotation)
 	#Setting bullet with same rotation and pos + offset
 	bullet_instance.global_position = global_position + spawn_offset
 	bullet_instance.rotation = rotation
-	bullet_instance.apply_central_impulse(Vector2(bullet_speed, 0).rotated(rotation))
+	bullet_instance.linear_velocity = (Vector2(bullet_speed, 0).rotated(rotation))
 	
+	bullet_instance.add_to_group("bullets")
 	#Spawn Bullet in
 	get_tree().get_root().call_deferred("add_child", bullet_instance)
-	

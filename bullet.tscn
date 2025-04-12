@@ -1,25 +1,39 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxg3iig1t4w3p"]
+[gd_scene load_steps=5 format=3 uid="uid://cxg3iig1t4w3p"]
 
 [ext_resource type="Texture2D" uid="uid://d3c5w4fredy8x" path="res://Sprites/Bullet.png" id="1_v7oki"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8qja"]
-size = Vector2(14, 7)
+[sub_resource type="GDScript" id="GDScript_v7oki"]
+script/source = "# Bullet.gd
+extends RigidBody2D  # Use RigidBody2D for physics handling
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t4vbm"]
-size = Vector2(16, 9)
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"enemy\"):  # Ensure you check for the enemy or the right object
+		emit_signal(\"hit\")  # Optional, if you need to use signals for other logic (e.g., damage)
+		queue_free()  # Remove the bullet when it collides
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8qja"]
+size = Vector2(8, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v7oki"]
+size = Vector2(19, 12.5)
 
 [node name="Bullet" type="RigidBody2D"]
 gravity_scale = 0.0
+script = SubResource("GDScript_v7oki")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
+position = Vector2(3, 1)
 shape = SubResource("RectangleShape2D_v8qja")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_v7oki")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_t4vbm")
+position = Vector2(1.5, 0.75)
+shape = SubResource("RectangleShape2D_v7oki")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_v7oki")
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

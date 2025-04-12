@@ -4,19 +4,29 @@ var enemy_scene = preload("res://Enemy.tscn")
 var enemy_instance = enemy_scene.instantiate()
 
 func _ready():
-	var enemy = enemy_scene.instantiate()
-	enemy.global_position = get_random_edge_position()
-	add_child(enemy)
+	var screen_size = get_viewport_rect().size
+	print("Screen size:", screen_size)
+	randomize()
+	$Timer.wait_time = 2.0
+	$Timer.timeout.connect(_on_Timer_timeout)
+	$Timer.start()
 	
+func _on_Timer_timeout():
+	spawnEnemy(getRandomEdgePosition())
 
+func spawnEnemy(vector):
+	var enemy = enemy_scene.instantiate()
+	enemy.add_to_group("enemy")
+	enemy.global_position = vector
+	add_child(enemy)
 
-func get_random_edge_position():
-	var margin = 25 # Area past border it can spawn in
+func getRandomEdgePosition():
+	var margin = 100 # Area past border it can spawn in
 	var side = randi() % 4  # Randomize direction
 	
 	# Cases depending on outcome of side
 	match side:
-		0: return Vector2(randf_range(0, 1152), -margin) #Up
+		0: return Vector2(randf_range(0, 1152), - margin) #Up
 		1: return Vector2(1152 + margin, randf_range(0, 648)) #Right
 		2: return Vector2(randf_range(0, 1152), 648 + margin) #Down
-		3: return Vector2(-margin, randf_range(0, 1152)) #Left
+		3: return Vector2(-margin, randf_range(0, 648)) #Left
