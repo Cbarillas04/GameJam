@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://bhhhym4ngfytb"]
+
+[ext_resource type="Script" uid="uid://d1jduou7lli0l" path="res://Scripts/game.gd" id="1_7jktm"]
+[ext_resource type="Script" uid="uid://bw4hsucl1drka" path="res://Scripts/player.gd" id="1_fc0e3"]
+[ext_resource type="Texture2D" uid="uid://cwfof4ctvnurm" path="res://Sprites/Player.png" id="2_7jktm"]
+[ext_resource type="Script" uid="uid://cx6l1xxef6v7e" path="res://Scripts/gun.gd" id="3_ryrav"]
+[ext_resource type="Texture2D" uid="uid://cr6luvgsal4xe" path="res://Sprites/Gun.png" id="4_eow3j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqk2v"]
+size = Vector2(39, 53)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_036b0"]
+radius = 13.0
+height = 54.0
+
+[sub_resource type="GDScript" id="GDScript_036b0"]
+
+[node name="Game" type="Node2D"]
+position = Vector2(561, 356)
+script = ExtResource("1_7jktm")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_fc0e3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_aqk2v")
+
+[node name="Character" type="Sprite2D" parent="Player/CollisionShape2D"]
+texture_filter = 1
+texture = ExtResource("2_7jktm")
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": false,
+"output_section": false,
+"pending_changes": {
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": "res://Player.ase"
+}
+}
+
+[node name="Area2D" type="Area2D" parent="Player/CollisionShape2D/Character"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/CollisionShape2D/Character/Area2D"]
+shape = SubResource("CapsuleShape2D_036b0")
+
+[node name="Node2D" type="Node2D" parent="Player"]
+script = ExtResource("3_ryrav")
+
+[node name="Gun" type="Sprite2D" parent="Player/Node2D"]
+texture_filter = 1
+position = Vector2(0, 5)
+texture = ExtResource("4_eow3j")
+centered = false
+offset = Vector2(-30, -38)
+script = SubResource("GDScript_036b0")
