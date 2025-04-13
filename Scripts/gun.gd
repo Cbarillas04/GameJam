@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var sprite = $Gun
+@onready var animationShot = $Gun/Shoot
 #Setting Bullet Speed
 var bullet_speed = 1500
 #Loading Bullet Scene
@@ -23,11 +24,15 @@ func _process(delta):
 		
 	if Input.is_action_just_pressed("LMB"):
 		fire()
-	
+		animationShot.play("Shoot")
+
+
+
 func fire():
 	#Player Uses health pool to shoot
 	Global.playerHealth -= 1
-	print(Global.playerHealth)
+	Global.health_changed.emit()
+
 	#Intiating Bullet scene
 	var bullet_instance = bullet.instantiate()
 	

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxg3iig1t4w3p"]
 
-[ext_resource type="Texture2D" uid="uid://d3c5w4fredy8x" path="res://Sprites/Bullet.png" id="1_v7oki"]
+[ext_resource type="Texture2D" uid="uid://diewip3rgwfe4" path="res://Sprites/Bullet_Health.png" id="1_v7oki"]
 
 [sub_resource type="GDScript" id="GDScript_v7oki"]
 script/source = "# Bullet.gd
@@ -16,7 +16,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 size = Vector2(8, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v7oki"]
-size = Vector2(19, 12.5)
+size = Vector2(11, 9)
 
 [node name="Bullet" type="RigidBody2D"]
 gravity_scale = 0.0
@@ -27,12 +27,14 @@ position = Vector2(3, 1)
 shape = SubResource("RectangleShape2D_v8qja")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3, 1)
+scale = Vector2(0.21875, 0.21875)
 texture = ExtResource("1_v7oki")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1.5, 0.75)
+position = Vector2(2.5, 0.5)
 shape = SubResource("RectangleShape2D_v7oki")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

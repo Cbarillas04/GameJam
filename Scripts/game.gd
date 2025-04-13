@@ -1,32 +1,57 @@
 extends Node2D
 
 var enemy_scene = preload("res://Enemy.tscn")
-var enemy_instance = enemy_scene.instantiate()
 
 func _ready():
-	var screen_size = get_viewport_rect().size
-	print("Screen size:", screen_size)
 	randomize()
 	$Timer.wait_time = 2.0
 	$Timer.timeout.connect(_on_Timer_timeout)
 	$Timer.start()
-	
+
+#After xx:xx time, call spawnEnemy
 func _on_Timer_timeout():
 	spawnEnemy(getRandomEdgePosition())
 
-func spawnEnemy(vector):
+# Spawn an single enemy
+func spawnEnemy(position: Vector2):
 	var enemy = enemy_scene.instantiate()
 	enemy.add_to_group("enemy")
-	enemy.global_position = vector
+	enemy.global_position = position
 	add_child(enemy)
-
-func getRandomEdgePosition():
-	var margin = 100 # Area past border it can spawn in
-	var side = randi() % 4  # Randomize direction
 	
-	# Cases depending on outcome of side
+	# Debug circle
+	#var debug = ColorRect.new()
+	#debug.color = Color(1, 0, 0, 0.5)
+	#debug.size = Vector2(10, 10)
+	#debug.global_position = position
+	#add_child(debug)
+	
+#Find spawn point for enemy
+func getRandomEdgePosition() -> Vector2:
+	var margin = 50
+	var camera = get_viewport().get_camera_2d()
+
+	# Fallback if there's no camera yet
+	if camera == null:
+		return Vector2.ZERO
+		
+		#Adjust to fit screen size for all
+	var screen_size = get_viewport_rect().size
+	var cam_pos = camera.global_position
+	var half_size = screen_size * 0.5
+
+	var left = cam_pos.x - half_size.x - margin
+	var right = cam_pos.x + half_size.x + margin
+	var top = cam_pos.y - half_size.y - margin
+	var bottom = cam_pos.y + half_size.y + margin
+	
+	var side = randi() % 4
+	
+	#Cases for depedning on the random, decides where the enemy spawn comes from
 	match side:
-		0: return Vector2(randf_range(0, 1152), - margin) #Up
-		1: return Vector2(1152 + margin, randf_range(0, 648)) #Right
-		2: return Vector2(randf_range(0, 1152), 648 + margin) #Down
-		3: return Vector2(-margin, randf_range(0, 648)) #Left
+		0: return Vector2(randf_range(left, right), top)     # Top
+		1: return Vector2(right, randf_range(top, bottom))   # Right
+		2: return Vector2(randf_range(left, right), bottom)  # Bottom
+		3: return Vector2(left, randf_range(top, bottom))    # Left
+
+	return cam_pos  # fallback center if something fails
