@@ -1,6 +1,7 @@
 extends Node2D
 
 var enemy_scene = preload("res://Enemy.tscn")
+var enemy_scene2 = preload("res://enemy_2.tscn")
 
 func _ready():
 	randomize()
@@ -14,7 +15,13 @@ func _on_Timer_timeout():
 
 # Spawn an single enemy
 func spawnEnemy(position: Vector2):
-	var enemy = enemy_scene.instantiate()
+	var temp = randi() % 3
+	var enemy = null
+	if temp in [0, 1]:
+		enemy = enemy_scene.instantiate()
+	elif temp == 2:
+		enemy = enemy_scene2.instantiate()
+	
 	enemy.add_to_group("enemy")
 	enemy.global_position = position
 	add_child(enemy)

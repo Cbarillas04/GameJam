@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 var player_in_area = false
-var speed = 190
-var health = 3
+var speed = 375
+var health = 1
 
 @onready var cooldown_timer = $DamageCooldown
 @onready var enemy = $Enemy
@@ -39,7 +39,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		health -= 1
 		flash_hit()
 		if health <= 0:
-			Global.score += 100
+			Global.score += 125
 			addHealth()
 			queue_free()
 
@@ -58,7 +58,7 @@ func flash_hit():
 
 func addHealth():
 	if Global.playerHealth + 3 < Global.maxHealth:
-		Global.playerHealth += 3
+		Global.playerHealth += 1
 	else:
 		Global.playerHealth = Global.maxHealth
 	Global.health_changed.emit()
@@ -66,6 +66,6 @@ func addHealth():
 
 func _on_damage_cooldown_timeout() -> void:
 	if player_in_area:
-		Global.playerHealth -= 2
+		Global.playerHealth -= 6
 		Global.health_changed.emit()
 		cooldown_timer.start()  # Loop it again if player still inside

@@ -36,6 +36,7 @@ Music: Geoffrey Di
 Visuals: Carlos Barillas"
 
 [node name="Score" type="Label" parent="."]
+layout_mode = 0
 offset_left = 23.0
 offset_top = 320.0
 offset_right = 393.0

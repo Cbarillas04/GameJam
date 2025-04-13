@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=4 uid="uid://dr8sql0h3cb5l"]
+
+[ext_resource type="Script" uid="uid://bf55dcfc6uhef" path="res://enemy_2.gd" id="1_vfv5t"]
+[ext_resource type="AudioStream" uid="uid://dpwkdjxy2ms2h" path="res://Sounds/495117__nebulasnails__wet-splat-2.mp3" id="2_mvvu1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]
+size = Vector2(35, 58)
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_vfv5t"]
+_data = PackedByteArray("AAADAAUAAAABAAAAgAAAAIAAAACQAwAAUklGRogDAABXRUJQVlA4THsDAAAvf8AfEC9AkG0zf7NlAMe5BmG20SDm77L/OR2ZtE2V1m8V7dz8BwD4n0tqDWg3gFs3kKgOyEAsIO5gtwMCkwIIePpvhrYp6x6/Ef1n2LZtGLqdl+YTeTlqQ7bGAma2RG2s/aNk5VjAzBZEhdH/R0n/KC6ZbVFhLPZCKS6Zi70gcM1Y2/cpataYmRkw1/Y91/n7seOIFWZm1lpczMPsYzgbrvP3Y8cRTYE6BMDG88U8zD6Gs22i5GwK1CEA9p4j5p8o2DdRcnbZ929xtsX8EwWb0o+KdGkl7Pu3OLuU3w+XpB8V6dKK0pO/hVmU3w+LbJIkSZzNLjwZRW8W0SQ9ydlskSQdwDxNulGzAIA2zQp9ooYlombF7IsJBH7WVj+5QAEgwH2ict/j0mbh7C6URcBXegJnLpo/+Nr+dLZJsjjbanNZ4hzduTZzVSy49iqATXptJ72PgYn2prZxhdID8+yKm30umcj+JspeVyF+sK5pODmK0SXpMGA2NwGALpL0JXMCszcqgJNDRJdoGqJbl15GBhacPkREMultkgwg0BkViDnkYqm8b2KKSBm5Vob5OGoRd7xddWyIIRJ3JJn03rkZHyimSCDPISJSK5u1QoGk3eCq7BpySdJX+YPfFMWk13upBYxnxAjMm671JsnfDMybLtUc7MKfITDvulZLmhkZ4HjCOe3hinaRbFHOKY/JHiVp1sKntz4xMyDg8pT052tdEgDAZ/p4zUiO3livyWKMbJMA6EMWoyT7NF+4ovXTXagNeSFmZjTZHJP/qaiNvSxgZjv/UbLxRIWxuYG5ufeV4iZj734vMzPbsrjO348dR2w0D7OP4dwjUIcAuOG5mig5d4n5JwruYt+/xblL+lGRLlui/H64mSd/GzciSRbnphbRJD2AuatF1CwAYB9Rw2bpEwBsX5ObJetnbmwaEPsWuZuSZOzm+1zmdGDu5NzmMufF3MVJBibgu+Yszjw3SSfpCiY3cSM5lEyOLZskSRdJ+iYkySGiu1x6Mx8iIhm/uWdOH1IBG0rpdClRAC+XFnln/l6uHCJ5RwKJ+eZRejVERGrFe3WhZNKufmfuMeSSgP/e59fNpd7FkfSbrvUmSXrSb7rWy5j02xZJzJc/bg9X9F1Kd3lMvOzx7XWSj28i9jJ9vGYAhuyLAXspAJxbGUn+XDbGzIwmm2PyvxkA")
+size_override = Vector2(128, 128)
+
+[sub_resource type="Animation" id="Animation_4gyqm"]
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 0, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qi2p4"]
+_data = {
+&"Walk": SubResource("Animation_4gyqm")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qi2p4"]
+size = Vector2(40, 64)
+
+[node name="Node2D" type="CharacterBody2D"]
+collision_mask = 8
+script = ExtResource("1_vfv5t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_4gyqm")
+
+[node name="Enemy" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = SubResource("PortableCompressedTexture2D_vfv5t")
+hframes = 2
+vframes = 2
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "Enemy/Walk",
+"slice": "",
+"source": "res://Sprites/Enemy#2.ase"
+}
+metadata/_aseprite_wizard_source_file_hash_ = "a4e2599041b13c0aec8bda2cd1129065"
+
+[node name="Walk" type="AnimationPlayer" parent="Enemy"]
+libraries = {
+&"": SubResource("AnimationLibrary_qi2p4")
+}
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, -1)
+shape = SubResource("RectangleShape2D_qi2p4")
+
+[node name="DamageCooldown" type="Timer" parent="."]
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_mvvu1")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="DamageCooldown" to="." method="_on_damage_cooldown_timeout"]
