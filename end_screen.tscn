@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://jfilf4x1pxu8"]
 
-[ext_resource type="Script" uid="uid://c8l3s2csjmi2c" path="res://end_screen.gd" id="1_abjgy"]
+[ext_resource type="Script" uid="uid://c8l3s2csjmi2c" path="res://Scripts/end_screen.gd" id="1_abjgy"]
 [ext_resource type="Texture2D" uid="uid://5vfrg6jb6cdp" path="res://Sprites/EndScreen.png" id="1_my301"]
 
 [node name="EndScreen" type="Control"]

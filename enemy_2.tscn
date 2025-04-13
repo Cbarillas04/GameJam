@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://dr8sql0h3cb5l"]
 
-[ext_resource type="Script" uid="uid://bf55dcfc6uhef" path="res://enemy_2.gd" id="1_vfv5t"]
+[ext_resource type="Script" uid="uid://bf55dcfc6uhef" path="res://Scripts/enemy_2.gd" id="1_vfv5t"]
 [ext_resource type="AudioStream" uid="uid://dpwkdjxy2ms2h" path="res://Sounds/495117__nebulasnails__wet-splat-2.mp3" id="2_mvvu1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]
