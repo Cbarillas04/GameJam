@@ -3,6 +3,8 @@ extends Node
 signal health_changed
 signal playerDied
 
+#@onready var scoreText = 
+
 var velocity = Vector2()
 var playerHealth = 20
 var maxHealth = 20
@@ -16,12 +18,8 @@ func die():
 	print("Player has died!")
 	velocity = Vector2.ZERO
 	
+	# Load the start screen
+	get_tree().change_scene_to_file("res://end_screen.tscn")
 	# Reset values
 	playerHealth = maxHealth
-	score = 0
-	
-	# Unpause the game in case it was paused
-	get_tree().paused = false
-
-	# Load the start screen
-	get_tree().change_scene_to_file("res://start_screen.tscn")
+	#score = 0

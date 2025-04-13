@@ -3,6 +3,7 @@ extends Node2D
 @onready var sprite = $Gun
 @onready var animationShot = $Gun/Shoot
 @onready var cooldown_timer = $ShootCooldown
+@onready var shootingSound = $Gun/ShootingSounds
 
 #Setting Bullet Speed
 var bullet_speed = 1500
@@ -16,7 +17,6 @@ func _process(delta):
 	# Get mouse position and Direction from gun to mouse
 	var mouse_pos = get_global_mouse_position()  
 	var to_mouse = mouse_pos - global_position
-
 	# Rotate the parent node to face the mouse
 	rotation = to_mouse.angle()
 
@@ -37,13 +37,14 @@ func _process(delta):
 func fire():
 	#Player Uses health pool to shoot
 	Global.playerHealth -= 1
+	shootingSound.play()
 	Global.health_changed.emit()
 
 	#Intiating Bullet scene
 	var bullet_instance = bullet.instantiate()
 	
 	#Offsetting bullet spawn, doesn't intefere with player
-	var spawn_offset = Vector2(50, 0).rotated(rotation)
+	var spawn_offset = Vector2(10, 0).rotated(rotation)
 	#Setting bullet with same rotation and pos + offset
 	bullet_instance.global_position = global_position + spawn_offset
 	bullet_instance.rotation = rotation

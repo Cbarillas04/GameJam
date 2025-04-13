@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://jfilf4x1pxu8"]
+
+[ext_resource type="Script" uid="uid://c8l3s2csjmi2c" path="res://end_screen.gd" id="1_abjgy"]
+[ext_resource type="Texture2D" uid="uid://5vfrg6jb6cdp" path="res://Sprites/EndScreen.png" id="1_my301"]
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_abjgy")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_my301")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 406.0
+offset_right = 208.0
+offset_bottom = 437.0
+text = "Press Space to Continue"
+
+[node name="Label" type="Label" parent="Button"]
+layout_mode = 0
+offset_left = 667.0
+offset_top = -11.0
+offset_right = 775.0
+offset_bottom = 39.0
+theme_override_font_sizes/font_size = 10
+text = "Scripts: Carlos Barillas
+Music: Geoffrey Di
+Visuals: Carlos Barillas"
+
+[node name="Score" type="Label" parent="."]
+offset_left = 23.0
+offset_top = 320.0
+offset_right = 393.0
+offset_bottom = 369.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Score: "

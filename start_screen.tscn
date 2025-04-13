@@ -22,6 +22,6 @@ offset_left = 517.0
 offset_top = 372.0
 offset_right = 693.0
 offset_bottom = 403.0
-text = "Prest to Enter to Start"
+text = "Press Space to Continue"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
