@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var player_in_area = false
-var speed = 75
+var speed = 150
 var health = 2
 
 @onready var cooldown_timer = $DamageCooldown
@@ -36,9 +36,20 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		
 	if body.is_in_group("bullets"):
 		health -= 1
+		flash_hit()
 		if health <= 0:
 			addHealth()
 			queue_free()
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body.name == "Player":
+		player_in_area = false
+
+func flash_hit():
+	enemy.modulate = Color(1, 1, 1, 1)  # Bright white glow
+	await get_tree().create_timer(0.1).timeout
+	enemy.modulate = Color(1, 1, 1, 1)  # Reset to normal color
+
 
 func addHealth():
 	if Global.playerHealth + 3 < Global.maxHealth:
@@ -47,9 +58,9 @@ func addHealth():
 		Global.playerHealth = Global.maxHealth
 	Global.health_changed.emit()
 	
-func _on_DamageCooldown_timeout():
-	print("pass")
+
+func _on_damage_cooldown_timeout() -> void:
 	if player_in_area:
-		Global.playerHealth -= 1
+		Global.playerHealth -= 2
 		Global.health_changed.emit()
 		cooldown_timer.start()  # Loop it again if player still inside

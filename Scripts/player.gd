@@ -40,8 +40,6 @@ func _process(delta):
 		Character.flip_h = false
 		
 
-
-
 func take_damage(amount):
 	Global.playerHealth -= amount
 	Global.playerHealth = clamp(Global.playerHealth, 0, Global.maxHealth)

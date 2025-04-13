@@ -2,10 +2,14 @@ extends Node2D
 
 @onready var sprite = $Gun
 @onready var animationShot = $Gun/Shoot
+@onready var cooldown_timer = $ShootCooldown
+
 #Setting Bullet Speed
 var bullet_speed = 1500
 #Loading Bullet Scene
 var bullet = preload("res://bullet.tscn")
+#Cooldown Bool
+var can_shoot = true  
 
 
 func _process(delta):
@@ -22,9 +26,11 @@ func _process(delta):
 	else:
 		sprite.flip_v = false  # Flip for right
 		
-	if Input.is_action_just_pressed("LMB"):
+	if Input.is_action_just_pressed("LMB") and can_shoot:
 		fire()
 		animationShot.play("Shoot")
+		can_shoot = false
+		cooldown_timer.start()
 
 
 
@@ -46,3 +52,8 @@ func fire():
 	bullet_instance.add_to_group("bullets")
 	#Spawn Bullet in
 	get_tree().get_root().call_deferred("add_child", bullet_instance)
+
+#Allow player to shoot again when wait timer finishes
+func _on_shoot_cooldown_timeout() -> void:
+	can_shoot = true
+	

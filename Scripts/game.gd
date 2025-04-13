@@ -4,7 +4,7 @@ var enemy_scene = preload("res://Enemy.tscn")
 
 func _ready():
 	randomize()
-	$Timer.wait_time = 2.0
+	$Timer.wait_time = 1.0
 	$Timer.timeout.connect(_on_Timer_timeout)
 	$Timer.start()
 

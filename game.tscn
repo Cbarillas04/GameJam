@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://bhhhym4ngfytb"]
+[gd_scene load_steps=20 format=4 uid="uid://bhhhym4ngfytb"]
 
 [ext_resource type="Script" uid="uid://d1jduou7lli0l" path="res://Scripts/game.gd" id="1_7jktm"]
 [ext_resource type="Script" uid="uid://bw4hsucl1drka" path="res://Scripts/player.gd" id="1_fc0e3"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cchfch4yja4p1" path="res://Sprites/HealthBar.png" id="5_ryrav"]
 [ext_resource type="Script" uid="uid://ndgrtbrh6n8w" path="res://Scripts/health_bar.gd" id="6_ryrav"]
 [ext_resource type="Texture2D" uid="uid://bv6k812gfij6k" path="res://Sprites/Tiles.png" id="7_eow3j"]
+[ext_resource type="AudioStream" uid="uid://dlqa3clbpe3o3" path="res://Sounds/wilted rose ringtone 3.ogg" id="8_j5wjh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqk2v"]
 size = Vector2(39, 53)
@@ -118,6 +119,8 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "ca2123d7fce8ff796490442eeb758507"
 
 [node name="Area2D" type="Area2D" parent="Player/CollisionShape2D/Character"]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/CollisionShape2D/Character/Area2D"]
 shape = SubResource("CapsuleShape2D_036b0")
@@ -161,7 +164,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_ryrav")
 }
 
-[node name="Timer" type="Timer" parent="Player/Node2D"]
+[node name="ShootCooldown" type="Timer" parent="Player/Node2D"]
+wait_time = 0.5
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 scale = Vector2(-0.510469, -0.510469)
@@ -185,6 +189,11 @@ texture_under = ExtResource("4_7jktm")
 texture_progress = ExtResource("5_ryrav")
 script = ExtResource("6_ryrav")
 metadata/_edit_use_anchors_ = true
+
+[node name="MusicPlayer" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("8_j5wjh")
+autoplay = true
+parameters/looping = true
 
 [node name="Timer" type="Timer" parent="."]
 
@@ -217,3 +226,6 @@ shape = SubResource("RectangleShape2D_eow3j")
 position = Vector2(-111, 2472)
 rotation = 1.57071
 shape = SubResource("RectangleShape2D_eow3j")
+
+[connection signal="timeout" from="Player/Node2D/ShootCooldown" to="Player/Node2D" method="_on_shoot_cooldown_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
