@@ -1,6 +1,6 @@
 extends Node2D
 
-var enemy_scene = preload("res://Enemy.tscn")
+var enemy_scene = preload("res://enemy.tscn")
 var enemy_scene2 = preload("res://enemy_2.tscn")
 
 func _ready():
